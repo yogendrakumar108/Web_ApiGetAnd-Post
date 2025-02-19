@@ -23,11 +23,11 @@ namespace Web_Api.Controllers
         [HttpGet]
         public ActionResult GetVal(string name)
         {
-            var res= db.Employees.Where(x=> x.EmpName==name).First();
+            var res= db.Employees.Where(x=> x.EmpName==name).FirstOrDefault();
             if(res != null) 
             { 
-               var data=db.Employees.ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
+               //var data=db.Employees.ToList().FirstOrDefault();
+                return Json(res.EmpSalary, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace Web_Api.Controllers
         [HttpPost]
         public ActionResult PostVal(Employee res) 
         {
-            var Data = db.Employees.ToList();
+            
             if (res !=null)
             {
                 db.Employees.Add(res);
